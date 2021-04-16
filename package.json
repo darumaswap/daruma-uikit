@@ -1,7 +1,7 @@
 {
   "name": "@pancakeswap-libs/uikit",
   "version": "0.15.0",
-  "description": "Set of UI components for pancake projects",
+  "description": "Set of UI components for daruma projects",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -19,12 +19,6 @@
     "build-storybook": "build-storybook",
     "test": "jest",
     "release": "yarn build && np"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn format:write",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "jest": {
     "setupFilesAfterEnv": [
