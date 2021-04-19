@@ -2964,7 +2964,7 @@ var Icon$i = function (props) {
 
 var Logo$2 = function (_a) {
     var isDark = _a.isDark, props = __rest(_a, ["isDark"]);
-    return (React.createElement(Svg, __assign({ viewBox: "0 0 205 26" }, props), isDark ? (React.createElement("image", { width: "262", height: "32", href: '/images/logo-nav-dark.png' })) : (React.createElement("image", { width: "175", height: "32", href: '/images/logo-nav-white.png' }))));
+    return (React.createElement(Svg, __assign({ viewBox: "0 0 205 26" }, props), isDark ? (React.createElement("image", { width: "183", height: "32", href: '/images/logo-nav-dark.png' })) : (React.createElement("image", { width: "175", height: "32", href: '/images/logo-nav-white.png' }))));
 };
 
 var Icon$h = function (props) {
