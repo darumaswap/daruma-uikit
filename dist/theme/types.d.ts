@@ -49,6 +49,8 @@ export declare type Colors = {
     textDisabled: string;
     textSubtle: string;
     borderColor: string;
+    headerTableBackground: string;
+    bodyTableBackground: string;
     gradients: Gradients;
     binance: string;
 };
