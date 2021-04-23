@@ -2428,7 +2428,7 @@ var breakpointMap = {
     sm: 576,
     md: 852,
     lg: 968,
-    xl: 1080,
+    xl: 1080
 };
 var breakpoints = Object.values(breakpointMap).map(function (breakpoint) { return breakpoint + "px"; });
 var mediaQueries$1 = {
@@ -2444,7 +2444,7 @@ var shadows = {
     active: "0px 0px 0px 1px #0098A1, 0px 0px 4px 8px rgba(31, 199, 212, 0.4)",
     success: "0px 0px 0px 1px #31D0AA, 0px 0px 0px 4px rgba(49, 208, 170, 0.2)",
     warning: "0px 0px 0px 1px #ED4B9E, 0px 0px 0px 4px rgba(237, 75, 158, 0.2)",
-    focus: "0px 0px 0px 1px #7645D9, 0px 0px 0px 4px rgba(118, 69, 217, 0.6)",
+    focus: "0px 0px 0px 1px #CB6E6E, 0px 0px 0px 4px #CB6E6E",
     inset: "inset 0px 2px 2px -1px rgba(74, 74, 104, 0.1)",
 };
 var spacing = [0, 4, 8, 16, 24, 32, 48, 64];
@@ -3859,13 +3859,13 @@ var baseColors = {
 var brandColors = {
     binance: "#F0B90B",
 };
-var lightColors = __assign(__assign(__assign({}, baseColors), brandColors), { background: "#FAF9FA", backgroundDisabled: "#E9EAEB", backgroundAlt: "#FFFFFF", contrast: "#191326", dropdown: "#F6F6F6", invertedContrast: "#FFFFFF", input: "#eeeaf4", inputSecondary: "#d7caec", tertiary: "#eff4f5", text: "#a90d0d", textDisabled: "#BDC2C4", textSubtle: "#CB6E6E", borderColor: "#e9eaeb", headerTableBackground: "#F0D2D2", bodyTableBackground: "#F6EAEA", gradients: {
+var lightColors = __assign(__assign(__assign({}, baseColors), brandColors), { background: "#FAF9FA", backgroundDisabled: "#E9EAEB", backgroundAlt: "#FFFFFF", contrast: "#191326", dropdown: "#F6F6F6", invertedContrast: "#FFFFFF", input: "#F6EAEA", inputSecondary: "#CB6E6E", tertiary: "#eff4f5", text: "#a90d0d", textDisabled: "#BDC2C4", textSubtle: "#CB6E6E", borderColor: "#e9eaeb", headerTableBackground: "#F0D2D2", bodyTableBackground: "#F6EAEA", gradients: {
         bubblegum: "linear-gradient(139.73deg, #E6FDFF 0%, #F3EFFF 100%)",
         cardHeader: "linear-gradient(111.68deg, #F2ECF2 0%, #E8F2F6 100%)",
         blue: "linear-gradient(180deg, #A7E8F1 0%, #94E1F2 100%)",
         violet: "linear-gradient(180deg, #E2C9FB 0%, #CDB8FA 100%)",
     } });
-var darkColors = __assign(__assign(__assign({}, baseColors), brandColors), { secondary: "#a90d0d", background: "#100C18", backgroundDisabled: "#3c3742", backgroundAlt: "#27262c", contrast: "#FFFFFF", dropdown: "#1E1D20", invertedContrast: "#191326", input: "#483f5a", inputSecondary: "#CB6E6E", primaryDark: "#0098A1", tertiary: "#353547", text: "#EAE2FC", textDisabled: "#666171", textSubtle: "#CB6E6E", borderColor: "#524B63", headerTableBackground: "#F0D2D2", bodyTableBackground: "#27262", gradients: {
+var darkColors = __assign(__assign(__assign({}, baseColors), brandColors), { secondary: "#a90d0d", background: "#100C18", backgroundDisabled: "#3c3742", backgroundAlt: "#27262c", contrast: "#FFFFFF", dropdown: "#1E1D20", invertedContrast: "#191326", input: "#27262c", inputSecondary: "#CB6E6E", primaryDark: "#0098A1", tertiary: "#353547", text: "#EAE2FC", textDisabled: "#666171", textSubtle: "#CB6E6E", borderColor: "#524B63", headerTableBackground: "#F0D2D2", bodyTableBackground: "#27262", gradients: {
         bubblegum: "linear-gradient(139.73deg, #313D5C 0%, #3D2A54 100%)",
         cardHeader: "linear-gradient(166.77deg, #3B4155 0%, #3A3045 100%)",
         blue: "linear-gradient(180deg, #00707F 0%, #19778C 100%)",
