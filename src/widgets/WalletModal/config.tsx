@@ -5,9 +5,15 @@ import TrustWallet from "./icons/TrustWallet";
 import WalletConnect from "./icons/WalletConnect";
 import BinanceChain from "./icons/BinanceChain";
 import SafePalWallet from "./icons/SafePalWallet";
+import DarumaWallet from "./icons/DarumaWallet";
 import { Config, ConnectorNames } from "./types";
 
 const connectors: Config[] = [
+  {
+    title: "DarumaWallet",
+    icon: DarumaWallet,
+    connectorId: ConnectorNames.Injected,
+  },
   {
     title: "Metamask",
     icon: Metamask,
