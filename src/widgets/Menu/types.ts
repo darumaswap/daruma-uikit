@@ -7,8 +7,11 @@ export interface LangType {
 }
 
 export interface Profile {
-  darumaAddress?: string;
+  username?: string;
   image?: string;
+  profileLink: string;
+  noProfileLink: string;
+  showPip?: boolean;
 }
 
 export interface PushedProps {
@@ -51,8 +54,6 @@ export interface PanelProps {
   langs: LangType[];
   setLang: (lang: LangType) => void;
   links: Array<MenuEntry>;
-  deviceUID: string
-  tokenID: string
 }
 
 export interface NavProps extends PanelProps {
