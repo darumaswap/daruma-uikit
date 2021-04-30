@@ -11,16 +11,17 @@ interface Props {
   account: string;
   logout: () => void;
   onDismiss?: () => void;
+  darumaAddress?: string
 }
 
-const AccountModal: React.FC<Props> = ({ account, logout, onDismiss = () => null }) => (
+const AccountModal: React.FC<Props> = ({ account, logout, onDismiss = () => null, darumaAddress }) => (
   <Modal title="Your wallet" onDismiss={onDismiss}>
     <Text
       fontSize="20px"
       bold
       style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: "8px" }}
     >
-      {account}
+      {account ? `${account}` : `${darumaAddress}`}
     </Text>
     <Flex mb="32px">
       <LinkExternal small href={`https://bscscan.com/address/${account}`} mr="16px">

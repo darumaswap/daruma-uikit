@@ -5,9 +5,15 @@ import TrustWallet from "./icons/TrustWallet";
 import WalletConnect from "./icons/WalletConnect";
 import BinanceChain from "./icons/BinanceChain";
 import SafePalWallet from "./icons/SafePalWallet";
+import DarunaWallet from "./icons/DarumaWallet";
 import { Config, ConnectorNames } from "./types";
 
 const connectors: Config[] = [
+  {
+    title: "DarumaWallet",
+    icon: DarunaWallet,
+    connectorId: ConnectorNames.Injected,
+  },
   {
     title: "Metamask",
     icon: Metamask,
@@ -47,3 +53,7 @@ const connectors: Config[] = [
 
 export default connectors;
 export const connectorLocalStorageKey = "connectorId";
+export const deviceUIDKey = "deviceUID";
+export const tokenUIDKey = "tokenUID";
+export const BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/#/embed/daruma-wallet/link";
+export const BASE_DARUMA_URL_LOGOUT = "https://app-qc.darumawallet.com/#/auth/logout";

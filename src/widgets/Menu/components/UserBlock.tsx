@@ -7,11 +7,14 @@ interface Props {
   account?: string;
   login: Login;
   logout: () => void;
+  darumaAddress: string
 }
 
-const UserBlock: React.FC<Props> = ({ account, login, logout }) => {
-  const { onPresentConnectModal, onPresentAccountModal } = useWalletModal(login, logout, account);
+const UserBlock: React.FC<Props> = ({ account, login, logout, darumaAddress }) => {
+  const { onPresentConnectModal, onPresentAccountModal } = useWalletModal(login, logout, account, darumaAddress);
   const accountEllipsis = account ? `${account.substring(0, 4)}...${account.substring(account.length - 4)}` : null;
+  const darumaEllipsis = darumaAddress ? `${darumaAddress.substring(0, 4)}...${darumaAddress.substring(darumaAddress.length - 4)}` : null;
+
   return (
     <div>
       {account ? (
@@ -25,17 +28,31 @@ const UserBlock: React.FC<Props> = ({ account, login, logout }) => {
           {accountEllipsis}
         </Button>
       ) : (
-        <Button
-          scale="sm"
-          onClick={() => {
-            onPresentConnectModal();
-          }}
-        >
-          Connect
-        </Button>
+        <>
+          {darumaAddress ? (
+            <Button
+              scale="sm"
+              variant="tertiary"
+              onClick={() => {
+                onPresentAccountModal();
+              }}
+            >
+              {darumaEllipsis}
+            </Button>
+          ):(
+            <Button
+              scale="sm"
+              onClick={() => {
+                onPresentConnectModal();
+              }}
+            >
+              Connect
+            </Button>
+          )}
+        </>
       )}
     </div>
   );
 };
 
-export default React.memo(UserBlock, (prevProps, nextProps) => prevProps.account === nextProps.account);
+export default UserBlock;

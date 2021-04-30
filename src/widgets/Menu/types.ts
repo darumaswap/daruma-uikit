@@ -57,6 +57,7 @@ export interface PanelProps {
 }
 
 export interface NavProps extends PanelProps {
+  darumaAddress: string;
   account?: string;
   login: Login;
   profile?: Profile;
