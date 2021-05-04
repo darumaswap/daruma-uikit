@@ -3629,7 +3629,10 @@ var connectors = [
 var connectorLocalStorageKey = "connectorId";
 var deviceUIDKey = "deviceUID";
 var tokenUIDKey = "tokenUID";
+var darumaAddressKey = "darumaAddress";
+var connectDarumaKey = "isConnectDarumaWs";
 var BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/#/embed/daruma-wallet/link";
+var BASE_DARUMA_URL_LOGOUT = "https://app-qc.darumawallet.com/#/auth/logout";
 
 var WalletCard = function (_a) {
     var login = _a.login, walletConfig = _a.walletConfig, onDismiss = _a.onDismiss, mb = _a.mb;
@@ -3638,6 +3641,7 @@ var WalletCard = function (_a) {
     var tokenUID = window.localStorage.getItem(tokenUIDKey);
     var handleWalletConnect = function () {
         if (title === 'DarumaWallet') {
+            window.localStorage.setItem(connectDarumaKey, 'connect');
             window.open(BASE_DARUMA_URL_SIGNIN + "/" + deviceUID + "/" + tokenUID);
         }
         else {
@@ -3696,17 +3700,26 @@ var templateObject_1$4, templateObject_2$1;
 
 var AccountModal = function (_a) {
     var account = _a.account, logout = _a.logout, _b = _a.onDismiss, onDismiss = _b === void 0 ? function () { return null; } : _b, darumaAddress = _a.darumaAddress;
+    var handleLogout = function () {
+        if (darumaAddress) {
+            window.localStorage.removeItem(darumaAddressKey);
+            window.localStorage.setItem(connectDarumaKey, 'disconnect');
+            window.open("" + BASE_DARUMA_URL_LOGOUT);
+            window.location.reload();
+        }
+        else {
+            logout();
+            window.localStorage.removeItem(connectorLocalStorageKey);
+            onDismiss();
+        }
+    };
     return (React__default['default'].createElement(Modal, { title: "Your wallet", onDismiss: onDismiss },
-        React__default['default'].createElement(Text, { fontSize: "20px", bold: true, style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: "8px" } }, account ? "" + account : "" + darumaAddress),
+        React__default['default'].createElement(Text, { fontSize: "20px", bold: true, style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: "8px" } }, darumaAddress || (account)),
         React__default['default'].createElement(Flex, { mb: "32px" },
             React__default['default'].createElement(LinkExternal, { small: true, href: "https://bscscan.com/address/" + account, mr: "16px" }, "View on BscScan"),
             React__default['default'].createElement(CopyToClipboard, { toCopy: account }, "Copy Address")),
         React__default['default'].createElement(Flex, { justifyContent: "center" },
-            React__default['default'].createElement(Button, { scale: "sm", variant: "secondary", onClick: function () {
-                    logout();
-                    window.localStorage.removeItem(connectorLocalStorageKey);
-                    onDismiss();
-                } }, "Logout"))));
+            React__default['default'].createElement(Button, { scale: "sm", variant: "secondary", onClick: handleLogout }, "Logout"))));
 };
 
 var useWalletModal = function (login, logout, account, darumaAddress) {
@@ -3720,7 +3733,6 @@ var UserBlock = function (_a) {
     var _b = useWalletModal(login, logout, account, darumaAddress), onPresentConnectModal = _b.onPresentConnectModal, onPresentAccountModal = _b.onPresentAccountModal;
     var accountEllipsis = account ? account.substring(0, 4) + "..." + account.substring(account.length - 4) : null;
     var darumaEllipsis = darumaAddress ? darumaAddress.substring(0, 4) + "..." + darumaAddress.substring(darumaAddress.length - 4) : null;
-    console.log('uikit dar-block: ', darumaAddress);
     return (React__default['default'].createElement("div", null, account ? (React__default['default'].createElement(Button, { scale: "sm", variant: "tertiary", onClick: function () {
             onPresentAccountModal();
         } }, accountEllipsis)) : (React__default['default'].createElement(React__default['default'].Fragment, null, darumaAddress ? (React__default['default'].createElement(Button, { scale: "sm", variant: "tertiary", onClick: function () {
@@ -4130,9 +4142,11 @@ exports.Won = Icon$H;
 exports.alertVariants = variants$2;
 exports.byTextAscending = byTextAscending;
 exports.byTextDescending = byTextDescending;
+exports.connectDarumaKey = connectDarumaKey;
 exports.connectorLocalStorageKey = connectorLocalStorageKey;
 exports.dark = darkTheme;
 exports.darkColors = darkColors;
+exports.darumaAddressKey = darumaAddressKey;
 exports.deviceUIDKey = deviceUIDKey;
 exports.light = lightTheme;
 exports.lightColors = lightColors;

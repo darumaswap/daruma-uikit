@@ -122,7 +122,7 @@ const Menu: React.FC<NavProps> = ({
           href={homeLink?.href ?? "/"}
         />
         <Flex>
-          <UserBlock account={account} login={login} logout={logout} darumaAddress={darumaAddress}/>
+          <UserBlock account={account} login={login} logout={logout} darumaAddress={darumaAddress} />
           {/* {profile && <Avatar profile={profile} />} */}
         </Flex>
       </StyledNav>
