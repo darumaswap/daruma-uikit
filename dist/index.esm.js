@@ -7,6 +7,7 @@ import debounce from 'lodash/debounce';
 import { usePopper } from 'react-popper';
 import throttle from 'lodash/throttle';
 import { Link as Link$1, NavLink, useLocation } from 'react-router-dom';
+import useWebSocket from 'react-use-websocket';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 /*! *****************************************************************************
@@ -3617,25 +3618,58 @@ var connectorLocalStorageKey = "connectorId";
 var deviceUIDKey = "deviceUID";
 var tokenUIDKey = "tokenUID";
 var darumaAddressKey = "darumaAddress";
-var connectDarumaKey = "isConnectDarumaWs";
 var BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/#/embed/daruma-wallet/link";
 var BASE_DARUMA_URL_LOGOUT = "https://app-qc.darumawallet.com/#/auth/logout";
+var BASE_DARUMA_WALLET_SOCKET = "ws://app-qc.darumawallet.com/api/wallet";
+
+var useWs = function () {
+    var deviceUID = window.localStorage.getItem(deviceUIDKey);
+    var tokenUID = window.localStorage.getItem(tokenUIDKey);
+    var _a = useWebSocket(BASE_DARUMA_WALLET_SOCKET + "/v1/personal/link/init/ws/?device_uid=" + deviceUID + "&token=" + tokenUID, {
+        onOpen: function () { return console.log("ws connected"); },
+        shouldReconnect: function () { return true; },
+        reconnectInterval: 1000
+    }), sendJsonMessage = _a.sendJsonMessage, lastJsonMessage = _a.lastJsonMessage;
+    return { sendJsonMessage: sendJsonMessage, lastJsonMessage: lastJsonMessage };
+};
 
 var WalletCard = function (_a) {
     var login = _a.login, walletConfig = _a.walletConfig, onDismiss = _a.onDismiss, mb = _a.mb;
     var title = walletConfig.title, Icon = walletConfig.icon;
     var deviceUID = window.localStorage.getItem(deviceUIDKey);
     var tokenUID = window.localStorage.getItem(tokenUIDKey);
+    var _b = useWs(), sendJsonMessage = _b.sendJsonMessage, lastJsonMessage = _b.lastJsonMessage;
+    var getAccount = useCallback(function () {
+        sendJsonMessage({
+            "method": "Link.GetAccount",
+            "params": [
+                {
+                    "chain_id": 97
+                }
+            ]
+        });
+        if (lastJsonMessage) {
+            window.localStorage.setItem(darumaAddressKey, lastJsonMessage.result.address);
+            onDismiss();
+        }
+        else {
+            window.localStorage.removeItem(darumaAddressKey);
+        }
+    }, [sendJsonMessage, lastJsonMessage, onDismiss]);
+    useEffect(function () {
+        getAccount();
+        var interval = setInterval(getAccount, 1000);
+        return function () { return clearInterval(interval); };
+    }, [getAccount]);
     var handleWalletConnect = function () {
         if (title === 'DarumaWallet') {
-            window.localStorage.setItem(connectDarumaKey, 'connect');
             window.open(BASE_DARUMA_URL_SIGNIN + "/" + deviceUID + "/" + tokenUID);
         }
         else {
             login(walletConfig.connectorId);
             window.localStorage.setItem(connectorLocalStorageKey, walletConfig.connectorId);
+            onDismiss();
         }
-        onDismiss();
     };
     return (React.createElement(Button, { width: "100%", variant: "tertiary", onClick: handleWalletConnect, style: { justifyContent: "space-between" }, mb: mb, id: "wallet-connect-" + title.toLocaleLowerCase() },
         React.createElement(Text, { bold: true, color: "primary", mr: "16px" }, title),
@@ -3690,7 +3724,6 @@ var AccountModal = function (_a) {
     var handleLogout = function () {
         if (darumaAddress) {
             window.localStorage.removeItem(darumaAddressKey);
-            window.localStorage.setItem(connectDarumaKey, 'disconnect');
             window.open("" + BASE_DARUMA_URL_LOGOUT);
             window.location.reload();
         }
@@ -4004,4 +4037,4 @@ var darkTheme = __assign(__assign({}, base), { isDark: true, alert: dark$7, colo
 
 var lightTheme = __assign(__assign({}, base), { isDark: false, alert: light$7, colors: lightColors, card: light$6, toggle: light$3, nav: light$2, modal: light$1, pancakeToggle: light$5, radio: light$4, tooltip: light });
 
-export { Icon$1t as AddIcon, Alert, Icon$1s as ArrowBackIcon, Icon$1r as ArrowDownIcon, Icon$1q as ArrowDropDownIcon, Icon$1p as ArrowDropUpIcon, Icon$1o as ArrowForwardIcon, Icon$1n as ArrowUpIcon, Icon$1m as AutoRenewIcon, BackgroundImage, BalanceInput, GridLayout$1 as BaseLayout, Icon$1l as BinanceIcon, Icon$1v as BlockIcon, Box, Breadcrumbs, Icon$1k as BunnyPlaceholderIcon, Button, ButtonMenu$1 as ButtonMenu, ButtonMenuItem, Icon$1h as CalculateIcon, Card, CardBody, CardFooter, CardHeader, CardRibbon, Icon$1i as CardViewIcon, Icon$1j as Cards, GridLayout as CardsLayout, Icon$1f as ChartIcon, Checkbox, Icon$1x as CheckmarkCircleIcon, Icon$1e as CheckmarkIcon, Icon$1d as ChevronDownIcon, Icon$1c as ChevronLeftIcon, Icon$1b as ChevronRightIcon, Icon$1a as ChevronUpIcon, Icon$1g as CircleOutlineIcon, Icon$19 as CloseIcon, Icon$18 as CogIcon, Icon$17 as CommunityIcon, ConnectorNames, Icon$16 as CopyIcon, Icon$15 as CrownIcon, Dropdown, Icon$1w as ErrorIcon, ExpandableButton, ExpandableLabel, FallingBunnies, Flex, Heading, Icon$14 as HelpIcon, Icon$13 as HistoryIcon, IconButton, Image, Icon$1u as InfoIcon, Input$1 as Input, Icon$12 as LaurelLeftIcon, Icon$11 as LaurelRightIcon, Link, LinkExternal, Icon$10 as ListViewIcon, Icon$$ as LogoIcon, Icon$_ as LogoRoundIcon, Icon$Z as MedalBronzeIcon, Icon$Y as MedalGoldIcon, Icon$X as MedalPurpleIcon, Icon$W as MedalSilverIcon, Icon$V as MedalTealIcon, Menu, Icon$U as MetamaskIcon, Icon$T as MinusIcon, Modal, ModalBackButton, ModalBody, ModalCloseButton, ModalContainer, ModalHeader, ModalProvider, ModalTitle, Icon$S as NoProfileAvatarIcon, NotificationDot, Icon$R as OpenNewIcon, Icon$P as PancakeRoundIcon, PancakeToggle, Icon$Q as PancakesIcon, Icon$N as PlayCircleOutlineIcon, Icon$O as PocketWatchIcon, Icon$M as PrizeIcon, Progress, Icon$J as ProgressBunny, Radio, Icon$t as RefreshIcon, Icon$L as RemoveIcon, ResetCSS, Icon$z as SearchIcon, Skeleton, Slider, Spinner, Step, Stepper, Svg, Icon$y as SwapVertIcon, Icon$x as SyncAltIcon, Tab, ButtonMenu as TabMenu, Tag, Icon$G as TeamPlayerIcon, Icon$F as TestnetIcon, Text, Icon$E as Ticket, Icon$D as TicketRound, Icon$C as TimerIcon, ToastContainer, Toggle, Icon$B as TrophyGoldIcon, Icon$A as TuneIcon, Icon$K as VerifiedIcon, Icon$w as VolumeOffIcon, Icon$v as VolumeUpIcon, Icon$I as WaitIcon, Icon$u as WarningIcon, Icon$H as Won, variants$2 as alertVariants, byTextAscending, byTextDescending, connectDarumaKey, connectorLocalStorageKey, darkTheme as dark, darkColors, darumaAddressKey, deviceUIDKey, lightTheme as light, lightColors, makeRender, links as menuConfig, status as menuStatus, types as toastTypes, tokenUIDKey, useKonamiCheatCode, useMatchBreakpoints, useModal, useParticleBurst, useTable, useTooltip, useWalletModal };
+export { Icon$1t as AddIcon, Alert, Icon$1s as ArrowBackIcon, Icon$1r as ArrowDownIcon, Icon$1q as ArrowDropDownIcon, Icon$1p as ArrowDropUpIcon, Icon$1o as ArrowForwardIcon, Icon$1n as ArrowUpIcon, Icon$1m as AutoRenewIcon, BackgroundImage, BalanceInput, GridLayout$1 as BaseLayout, Icon$1l as BinanceIcon, Icon$1v as BlockIcon, Box, Breadcrumbs, Icon$1k as BunnyPlaceholderIcon, Button, ButtonMenu$1 as ButtonMenu, ButtonMenuItem, Icon$1h as CalculateIcon, Card, CardBody, CardFooter, CardHeader, CardRibbon, Icon$1i as CardViewIcon, Icon$1j as Cards, GridLayout as CardsLayout, Icon$1f as ChartIcon, Checkbox, Icon$1x as CheckmarkCircleIcon, Icon$1e as CheckmarkIcon, Icon$1d as ChevronDownIcon, Icon$1c as ChevronLeftIcon, Icon$1b as ChevronRightIcon, Icon$1a as ChevronUpIcon, Icon$1g as CircleOutlineIcon, Icon$19 as CloseIcon, Icon$18 as CogIcon, Icon$17 as CommunityIcon, ConnectorNames, Icon$16 as CopyIcon, Icon$15 as CrownIcon, Dropdown, Icon$1w as ErrorIcon, ExpandableButton, ExpandableLabel, FallingBunnies, Flex, Heading, Icon$14 as HelpIcon, Icon$13 as HistoryIcon, IconButton, Image, Icon$1u as InfoIcon, Input$1 as Input, Icon$12 as LaurelLeftIcon, Icon$11 as LaurelRightIcon, Link, LinkExternal, Icon$10 as ListViewIcon, Icon$$ as LogoIcon, Icon$_ as LogoRoundIcon, Icon$Z as MedalBronzeIcon, Icon$Y as MedalGoldIcon, Icon$X as MedalPurpleIcon, Icon$W as MedalSilverIcon, Icon$V as MedalTealIcon, Menu, Icon$U as MetamaskIcon, Icon$T as MinusIcon, Modal, ModalBackButton, ModalBody, ModalCloseButton, ModalContainer, ModalHeader, ModalProvider, ModalTitle, Icon$S as NoProfileAvatarIcon, NotificationDot, Icon$R as OpenNewIcon, Icon$P as PancakeRoundIcon, PancakeToggle, Icon$Q as PancakesIcon, Icon$N as PlayCircleOutlineIcon, Icon$O as PocketWatchIcon, Icon$M as PrizeIcon, Progress, Icon$J as ProgressBunny, Radio, Icon$t as RefreshIcon, Icon$L as RemoveIcon, ResetCSS, Icon$z as SearchIcon, Skeleton, Slider, Spinner, Step, Stepper, Svg, Icon$y as SwapVertIcon, Icon$x as SyncAltIcon, Tab, ButtonMenu as TabMenu, Tag, Icon$G as TeamPlayerIcon, Icon$F as TestnetIcon, Text, Icon$E as Ticket, Icon$D as TicketRound, Icon$C as TimerIcon, ToastContainer, Toggle, Icon$B as TrophyGoldIcon, Icon$A as TuneIcon, Icon$K as VerifiedIcon, Icon$w as VolumeOffIcon, Icon$v as VolumeUpIcon, Icon$I as WaitIcon, Icon$u as WarningIcon, Icon$H as Won, variants$2 as alertVariants, byTextAscending, byTextDescending, connectorLocalStorageKey, darkTheme as dark, darkColors, darumaAddressKey, deviceUIDKey, lightTheme as light, lightColors, makeRender, links as menuConfig, status as menuStatus, types as toastTypes, tokenUIDKey, useKonamiCheatCode, useMatchBreakpoints, useModal, useParticleBurst, useTable, useTooltip, useWalletModal };

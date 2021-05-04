@@ -11,6 +11,7 @@ var debounce = require('lodash/debounce');
 var reactPopper = require('react-popper');
 var throttle = require('lodash/throttle');
 var reactRouterDom = require('react-router-dom');
+var useWebSocket = require('react-use-websocket');
 var reactTransitionGroup = require('react-transition-group');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -21,6 +22,7 @@ var get__default = /*#__PURE__*/_interopDefaultLegacy(get);
 var noop__default = /*#__PURE__*/_interopDefaultLegacy(noop);
 var debounce__default = /*#__PURE__*/_interopDefaultLegacy(debounce);
 var throttle__default = /*#__PURE__*/_interopDefaultLegacy(throttle);
+var useWebSocket__default = /*#__PURE__*/_interopDefaultLegacy(useWebSocket);
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -3630,25 +3632,58 @@ var connectorLocalStorageKey = "connectorId";
 var deviceUIDKey = "deviceUID";
 var tokenUIDKey = "tokenUID";
 var darumaAddressKey = "darumaAddress";
-var connectDarumaKey = "isConnectDarumaWs";
 var BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/#/embed/daruma-wallet/link";
 var BASE_DARUMA_URL_LOGOUT = "https://app-qc.darumawallet.com/#/auth/logout";
+var BASE_DARUMA_WALLET_SOCKET = "ws://app-qc.darumawallet.com/api/wallet";
+
+var useWs = function () {
+    var deviceUID = window.localStorage.getItem(deviceUIDKey);
+    var tokenUID = window.localStorage.getItem(tokenUIDKey);
+    var _a = useWebSocket__default['default'](BASE_DARUMA_WALLET_SOCKET + "/v1/personal/link/init/ws/?device_uid=" + deviceUID + "&token=" + tokenUID, {
+        onOpen: function () { return console.log("ws connected"); },
+        shouldReconnect: function () { return true; },
+        reconnectInterval: 1000
+    }), sendJsonMessage = _a.sendJsonMessage, lastJsonMessage = _a.lastJsonMessage;
+    return { sendJsonMessage: sendJsonMessage, lastJsonMessage: lastJsonMessage };
+};
 
 var WalletCard = function (_a) {
     var login = _a.login, walletConfig = _a.walletConfig, onDismiss = _a.onDismiss, mb = _a.mb;
     var title = walletConfig.title, Icon = walletConfig.icon;
     var deviceUID = window.localStorage.getItem(deviceUIDKey);
     var tokenUID = window.localStorage.getItem(tokenUIDKey);
+    var _b = useWs(), sendJsonMessage = _b.sendJsonMessage, lastJsonMessage = _b.lastJsonMessage;
+    var getAccount = React.useCallback(function () {
+        sendJsonMessage({
+            "method": "Link.GetAccount",
+            "params": [
+                {
+                    "chain_id": 97
+                }
+            ]
+        });
+        if (lastJsonMessage) {
+            window.localStorage.setItem(darumaAddressKey, lastJsonMessage.result.address);
+            onDismiss();
+        }
+        else {
+            window.localStorage.removeItem(darumaAddressKey);
+        }
+    }, [sendJsonMessage, lastJsonMessage, onDismiss]);
+    React.useEffect(function () {
+        getAccount();
+        var interval = setInterval(getAccount, 1000);
+        return function () { return clearInterval(interval); };
+    }, [getAccount]);
     var handleWalletConnect = function () {
         if (title === 'DarumaWallet') {
-            window.localStorage.setItem(connectDarumaKey, 'connect');
             window.open(BASE_DARUMA_URL_SIGNIN + "/" + deviceUID + "/" + tokenUID);
         }
         else {
             login(walletConfig.connectorId);
             window.localStorage.setItem(connectorLocalStorageKey, walletConfig.connectorId);
+            onDismiss();
         }
-        onDismiss();
     };
     return (React__default['default'].createElement(Button, { width: "100%", variant: "tertiary", onClick: handleWalletConnect, style: { justifyContent: "space-between" }, mb: mb, id: "wallet-connect-" + title.toLocaleLowerCase() },
         React__default['default'].createElement(Text, { bold: true, color: "primary", mr: "16px" }, title),
@@ -3703,7 +3738,6 @@ var AccountModal = function (_a) {
     var handleLogout = function () {
         if (darumaAddress) {
             window.localStorage.removeItem(darumaAddressKey);
-            window.localStorage.setItem(connectDarumaKey, 'disconnect');
             window.open("" + BASE_DARUMA_URL_LOGOUT);
             window.location.reload();
         }
@@ -4142,7 +4176,6 @@ exports.Won = Icon$H;
 exports.alertVariants = variants$2;
 exports.byTextAscending = byTextAscending;
 exports.byTextDescending = byTextDescending;
-exports.connectDarumaKey = connectDarumaKey;
 exports.connectorLocalStorageKey = connectorLocalStorageKey;
 exports.dark = darkTheme;
 exports.darkColors = darkColors;

@@ -56,6 +56,6 @@ export const connectorLocalStorageKey = "connectorId";
 export const deviceUIDKey = "deviceUID";
 export const tokenUIDKey = "tokenUID";
 export const darumaAddressKey = "darumaAddress";
-export const connectDarumaKey = "isConnectDarumaWs";
 export const BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/#/embed/daruma-wallet/link";
 export const BASE_DARUMA_URL_LOGOUT = "https://app-qc.darumawallet.com/#/auth/logout";
+export const BASE_DARUMA_WALLET_SOCKET = "ws://app-qc.darumawallet.com/api/wallet"
