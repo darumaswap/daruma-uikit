@@ -3049,7 +3049,9 @@ var useWs = function () {
     var _a = useWebSocket__default['default'](BASE_DARUMA_WALLET_SOCKET + "/v1/personal/link/init/ws/?device_uid=" + deviceUID + "&token=" + tokenUID, {
         onOpen: function () { return console.log("ws connected"); },
         shouldReconnect: function () { return true; },
-        reconnectInterval: 1000
+        reconnectInterval: 1000,
+        retryOnError: true,
+        onClose: function () { return window.localStorage.removeItem(darumaAddressKey); }
     }), sendJsonMessage = _a.sendJsonMessage, lastJsonMessage = _a.lastJsonMessage;
     return { sendJsonMessage: sendJsonMessage, lastJsonMessage: lastJsonMessage };
 };
