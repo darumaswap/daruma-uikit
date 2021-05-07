@@ -3652,9 +3652,6 @@ var WalletCard = function (_a) {
             window.localStorage.setItem(darumaAddressKey, lastJsonMessage.result.address);
             onDismiss();
         }
-        else {
-            window.localStorage.removeItem(darumaAddressKey);
-        }
     }, [sendJsonMessage, lastJsonMessage, onDismiss]);
     useEffect(function () {
         getAccount();
@@ -3720,7 +3717,8 @@ var CopyToClipboard = function (_a) {
 var templateObject_1$4, templateObject_2$1;
 
 var AccountModal = function (_a) {
-    var account = _a.account, logout = _a.logout, _b = _a.onDismiss, onDismiss = _b === void 0 ? function () { return null; } : _b, darumaAddress = _a.darumaAddress;
+    var account = _a.account, logout = _a.logout, _b = _a.onDismiss, onDismiss = _b === void 0 ? function () { return null; } : _b;
+    var darumaAddress = window.localStorage.getItem(darumaAddressKey);
     var handleLogout = function () {
         if (darumaAddress) {
             window.localStorage.removeItem(darumaAddressKey);
@@ -3742,20 +3740,21 @@ var AccountModal = function (_a) {
             React.createElement(Button, { scale: "sm", variant: "secondary", onClick: handleLogout }, "Logout"))));
 };
 
-var useWalletModal = function (login, logout, account, darumaAddress) {
+var useWalletModal = function (login, logout, account) {
     var onPresentConnectModal = useModal(React.createElement(ConnectModal, { login: login }))[0];
-    var onPresentAccountModal = useModal(React.createElement(AccountModal, { account: account || "", logout: logout, darumaAddress: darumaAddress || "" }))[0];
+    var onPresentAccountModal = useModal(React.createElement(AccountModal, { account: account || "", logout: logout }))[0];
     return { onPresentConnectModal: onPresentConnectModal, onPresentAccountModal: onPresentAccountModal };
 };
 
 var UserBlock = function (_a) {
-    var account = _a.account, login = _a.login, logout = _a.logout, darumaAddress = _a.darumaAddress;
-    var _b = useWalletModal(login, logout, account, darumaAddress), onPresentConnectModal = _b.onPresentConnectModal, onPresentAccountModal = _b.onPresentAccountModal;
+    var account = _a.account, login = _a.login, logout = _a.logout;
+    var _b = useWalletModal(login, logout, account), onPresentConnectModal = _b.onPresentConnectModal, onPresentAccountModal = _b.onPresentAccountModal;
     var accountEllipsis = account ? account.substring(0, 4) + "..." + account.substring(account.length - 4) : null;
-    var darumaEllipsis = darumaAddress ? darumaAddress.substring(0, 4) + "..." + darumaAddress.substring(darumaAddress.length - 4) : null;
+    var mdarumaAddress = window.localStorage.getItem(darumaAddressKey);
+    var darumaEllipsis = mdarumaAddress ? mdarumaAddress.substring(0, 4) + "..." + mdarumaAddress.substring(mdarumaAddress.length - 4) : null;
     return (React.createElement("div", null, account ? (React.createElement(Button, { scale: "sm", variant: "tertiary", onClick: function () {
             onPresentAccountModal();
-        } }, accountEllipsis)) : (React.createElement(React.Fragment, null, darumaAddress ? (React.createElement(Button, { scale: "sm", variant: "tertiary", onClick: function () {
+        } }, accountEllipsis)) : (React.createElement(React.Fragment, null, mdarumaAddress ? (React.createElement(Button, { scale: "sm", variant: "tertiary", onClick: function () {
             onPresentAccountModal();
         } }, darumaEllipsis)) : (React.createElement(Button, { scale: "sm", onClick: function () {
             onPresentConnectModal();
@@ -3790,7 +3789,7 @@ var MobileOnlyOverlay = styled(Overlay)(templateObject_5 || (templateObject_5 = 
 });
 var Menu = function (_a) {
     var _b;
-    var darumaAddress = _a.darumaAddress, account = _a.account, login = _a.login, logout = _a.logout, isDark = _a.isDark, toggleTheme = _a.toggleTheme, langs = _a.langs, setLang = _a.setLang, currentLang = _a.currentLang, cakePriceUsd = _a.cakePriceUsd, links = _a.links, children = _a.children;
+    var account = _a.account, login = _a.login, logout = _a.logout, isDark = _a.isDark, toggleTheme = _a.toggleTheme, langs = _a.langs, setLang = _a.setLang, currentLang = _a.currentLang, cakePriceUsd = _a.cakePriceUsd, links = _a.links, children = _a.children;
     var isXl = useMatchBreakpoints().isXl;
     var isMobile = isXl === false;
     var _c = useState(!isMobile), isPushed = _c[0], setIsPushed = _c[1];
@@ -3830,7 +3829,7 @@ var Menu = function (_a) {
         React.createElement(StyledNav, { showMenu: showMenu },
             React.createElement(Logo$1, { isPushed: isPushed, togglePush: function () { return setIsPushed(function (prevState) { return !prevState; }); }, isDark: isDark, href: (_b = homeLink === null || homeLink === void 0 ? void 0 : homeLink.href) !== null && _b !== void 0 ? _b : "/" }),
             React.createElement(Flex, null,
-                React.createElement(UserBlock, { account: account, login: login, logout: logout, darumaAddress: darumaAddress }))),
+                React.createElement(UserBlock, { account: account, login: login, logout: logout }))),
         React.createElement(BodyWrapper, null,
             React.createElement(Panel, { isPushed: isPushed, isMobile: isMobile, showMenu: showMenu, isDark: isDark, toggleTheme: toggleTheme, langs: langs, setLang: setLang, currentLang: currentLang, cakePriceUsd: cakePriceUsd, pushNav: setIsPushed, links: links }),
             React.createElement(Inner, { isPushed: isPushed, showMenu: showMenu }, children),

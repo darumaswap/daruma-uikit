@@ -11,10 +11,11 @@ interface Props {
   account: string;
   logout: () => void;
   onDismiss?: () => void;
-  darumaAddress?: string;
 }
 
-const AccountModal: React.FC<Props> = ({ account, logout, onDismiss = () => null, darumaAddress }) => {
+const AccountModal: React.FC<Props> = ({ account, logout, onDismiss = () => null }) => {
+  const darumaAddress = window.localStorage.getItem(darumaAddressKey)
+
   const handleLogout = () => {
     if (darumaAddress) {
       window.localStorage.removeItem(darumaAddressKey);

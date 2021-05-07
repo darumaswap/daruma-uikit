@@ -34,8 +34,6 @@ const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss, mb }) => 
     if (lastJsonMessage){
       window.localStorage.setItem(darumaAddressKey, lastJsonMessage.result.address)
       onDismiss()
-    }else {
-      window.localStorage.removeItem(darumaAddressKey)
     }
   }, [sendJsonMessage, lastJsonMessage, onDismiss])
 
