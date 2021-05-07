@@ -3050,8 +3050,7 @@ var useWs = function () {
         onOpen: function () { return console.log("ws connected"); },
         shouldReconnect: function () { return true; },
         reconnectInterval: 1000,
-        retryOnError: true,
-        onClose: function () { return window.localStorage.removeItem(darumaAddressKey); }
+        retryOnError: true
     }), sendJsonMessage = _a.sendJsonMessage, lastJsonMessage = _a.lastJsonMessage;
     return { sendJsonMessage: sendJsonMessage, lastJsonMessage: lastJsonMessage };
 };

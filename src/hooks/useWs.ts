@@ -1,5 +1,5 @@
 import useWebSocket from 'react-use-websocket';
-import { darumaAddressKey, deviceUIDKey, tokenUIDKey } from "../widgets/WalletModal";
+import { deviceUIDKey, tokenUIDKey } from "../widgets/WalletModal";
 import { BASE_DARUMA_WALLET_SOCKET } from "../widgets/WalletModal/config";
 
 const useWs = () => {
@@ -10,8 +10,7 @@ const useWs = () => {
     onOpen: () => console.log(`ws connected`),
     shouldReconnect: () => true,
     reconnectInterval: 1000,
-    retryOnError: true,
-    onClose: () => window.localStorage.removeItem(darumaAddressKey)
+    retryOnError: true
   });
   return { sendJsonMessage, lastJsonMessage }
 }
