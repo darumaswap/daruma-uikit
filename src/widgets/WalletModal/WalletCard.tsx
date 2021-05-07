@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import Button from "../../components/Button/Button";
 import Text from "../../components/Text/Text";
 import {
   BASE_DARUMA_URL_SIGNIN,
-  connectorLocalStorageKey, darumaAddressKey, deviceUIDKey, tokenUIDKey
+  connectorLocalStorageKey, deviceUIDKey, tokenUIDKey
 } from "./config";
 import { Login, Config } from "./types";
-import useWs from "../../hooks/useWs";
 
 interface Props {
   walletConfig: Config;
@@ -19,30 +18,6 @@ const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss, mb }) => 
   const { title, icon: Icon } = walletConfig;
   const deviceUID = window.localStorage.getItem(deviceUIDKey)
   const tokenUID = window.localStorage.getItem(tokenUIDKey)
-  const { sendJsonMessage, lastJsonMessage } = useWs();
-
-  const getAccount = useCallback(() => {
-    sendJsonMessage({
-      "method": "Link.GetAccount",
-      "params": [
-        {
-          "chain_id": 97
-        }
-      ]
-    })
-
-    if (lastJsonMessage){
-      window.localStorage.setItem(darumaAddressKey, lastJsonMessage.result.address)
-      onDismiss()
-    }
-  }, [sendJsonMessage, lastJsonMessage, onDismiss])
-
-  useEffect(() => {
-    getAccount()
-
-    const interval = setInterval(getAccount, 1000)
-    return () => clearInterval(interval)
-  },[getAccount])
 
   const handleWalletConnect = () => {
     if (title === 'DarumaWallet') {
@@ -50,8 +25,8 @@ const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss, mb }) => 
     }else {
       login(walletConfig.connectorId);
       window.localStorage.setItem(connectorLocalStorageKey, walletConfig.connectorId);
-      onDismiss();
     }
+    onDismiss();
   }
 
   return (
