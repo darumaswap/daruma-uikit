@@ -1,12 +1,11 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "../../components/Link";
 import { HelpIcon } from "../../components/Svg";
 import { Modal } from "../Modal";
 import WalletCard from "./WalletCard";
-import config, { darumaAddressKey } from "./config";
+import config from "./config";
 import { Login } from "./types";
-import useWs from "../../hooks/useWs";
 
 interface Props {
   login: Login;
