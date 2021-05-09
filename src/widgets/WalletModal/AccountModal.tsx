@@ -40,7 +40,7 @@ const AccountModal: React.FC<Props> = ({ account, logout, onDismiss = () => null
         )}
       </Text>
       <Flex mb="32px">
-        <LinkExternal small href={`https://bscscan.com/address/${account}`} mr="16px">
+        <LinkExternal small href={`https://testnet.bscscan.com/address/${darumaAddress}`} mr="16px">
           View on BscScan
         </LinkExternal>
         <CopyToClipboard toCopy={account}>Copy Address</CopyToClipboard>
