@@ -27,7 +27,7 @@ const UserBlock: React.FC<Props> = ({ account, login, logout}) => {
         setDarumaAddress('')
       }
     }
-    const interval = setInterval(updateAddress, 1000)
+    const interval = setInterval(updateAddress, 500)
     return () => clearInterval(interval)
   },[darumaAddress])
 
@@ -38,7 +38,7 @@ const UserBlock: React.FC<Props> = ({ account, login, logout}) => {
         setEnable(isEnable.toString())
       }
     }
-    const interval = setInterval(checkWalletButton, 1000)
+    const interval = setInterval(checkWalletButton, 500)
     return () => clearInterval(interval)
   }, [])
 
