@@ -2977,7 +2977,7 @@ var Icon$c = function (props) {
 
 var Logo$2 = function (_a) {
     var isDark = _a.isDark, props = __rest(_a, ["isDark"]);
-    return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 205 26" }, props), isDark ? (React__default['default'].createElement("image", { width: "183", height: "32", href: '/images/logo-nav-dark.png' })) : (React__default['default'].createElement("image", { width: "175", height: "32", href: '/images/logo-nav-white.png' }))));
+    return (React__default['default'].createElement(Svg, __assign({ viewBox: "0 0 205 32" }, props), isDark ? (React__default['default'].createElement("image", { width: "183", height: "32", href: '/images/logo-nav-dark.png' })) : (React__default['default'].createElement("image", { width: "172", height: "32", href: '/images/logo-nav-white.png' }))));
 };
 
 var Icon$b = function (props) {
@@ -3548,6 +3548,7 @@ var deviceUIDKey = "deviceUID";
 var tokenUIDKey = "tokenUID";
 var darumaAddressKey = "darumaAddress";
 var unlockWalletKey = "unlockWallet";
+var triggerUnlockKey = "triggerWallet";
 var BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/embed/daruma-shop/link";
 
 var WalletCard = function (_a) {
@@ -3557,6 +3558,7 @@ var WalletCard = function (_a) {
     var tokenUID = window.localStorage.getItem(tokenUIDKey);
     var handleWalletConnect = function () {
         if (title === 'DarumaWallet') {
+            window.localStorage.setItem(triggerUnlockKey, '1');
             window.open(BASE_DARUMA_URL_SIGNIN + "/" + deviceUID + "/" + tokenUID);
         }
         else {
@@ -3619,6 +3621,7 @@ var AccountModal = function (_a) {
     var handleLogout = function () {
         if (darumaAddress) {
             window.localStorage.removeItem(darumaAddressKey);
+            window.localStorage.setItem(triggerUnlockKey, '0');
             window.location.reload();
         }
         else {
@@ -4097,6 +4100,7 @@ exports.menuConfig = links;
 exports.menuStatus = status;
 exports.toastTypes = types;
 exports.tokenUIDKey = tokenUIDKey;
+exports.triggerUnlockKey = triggerUnlockKey;
 exports.unlockWalletKey = unlockWalletKey;
 exports.useKonamiCheatCode = useKonamiCheatCode;
 exports.useMatchBreakpoints = useMatchBreakpoints;

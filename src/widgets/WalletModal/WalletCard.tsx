@@ -3,7 +3,7 @@ import Button from "../../components/Button/Button";
 import Text from "../../components/Text/Text";
 import {
   BASE_DARUMA_URL_SIGNIN,
-  connectorLocalStorageKey, deviceUIDKey, tokenUIDKey
+  connectorLocalStorageKey, deviceUIDKey, tokenUIDKey, triggerUnlockKey
 } from "./config";
 import { Login, Config } from "./types";
 
@@ -21,6 +21,7 @@ const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss, mb }) => 
 
   const handleWalletConnect = () => {
     if (title === 'DarumaWallet') {
+      window.localStorage.setItem(triggerUnlockKey, '1')
       window.open(`${BASE_DARUMA_URL_SIGNIN}/${deviceUID}/${tokenUID}`)
     }else {
       login(walletConfig.connectorId);
