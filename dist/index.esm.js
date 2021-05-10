@@ -3535,7 +3535,7 @@ var deviceUIDKey = "deviceUID";
 var tokenUIDKey = "tokenUID";
 var darumaAddressKey = "darumaAddress";
 var unlockWalletKey = "unlockWallet";
-var BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/shop/daruma-wallet/link";
+var BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/embed/daruma-shop/link";
 
 var WalletCard = function (_a) {
     var login = _a.login, walletConfig = _a.walletConfig, onDismiss = _a.onDismiss, mb = _a.mb;
