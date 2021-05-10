@@ -3536,7 +3536,6 @@ var tokenUIDKey = "tokenUID";
 var darumaAddressKey = "darumaAddress";
 var unlockWalletKey = "unlockWallet";
 var BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/#/embed/daruma-wallet/link";
-var BASE_DARUMA_URL_LOGOUT = "https://app-qc.darumawallet.com/#/auth/logout";
 
 var WalletCard = function (_a) {
     var login = _a.login, walletConfig = _a.walletConfig, onDismiss = _a.onDismiss, mb = _a.mb;
@@ -3607,7 +3606,6 @@ var AccountModal = function (_a) {
     var handleLogout = function () {
         if (darumaAddress) {
             window.localStorage.removeItem(darumaAddressKey);
-            window.open("" + BASE_DARUMA_URL_LOGOUT);
             window.location.reload();
         }
         else {

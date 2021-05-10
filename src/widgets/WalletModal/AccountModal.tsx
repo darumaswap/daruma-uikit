@@ -19,7 +19,6 @@ const AccountModal: React.FC<Props> = ({ account, logout, onDismiss = () => null
   const handleLogout = () => {
     if (darumaAddress) {
       window.localStorage.removeItem(darumaAddressKey);
-      window.open(`${BASE_DARUMA_URL_LOGOUT}`)
       window.location.reload();
     }else {
       logout();
