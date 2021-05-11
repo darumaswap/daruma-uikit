@@ -491,7 +491,7 @@ var Icon$V = function (props) {
 
 var Icon$U = function (props) {
     return (React.createElement(Svg, __assign({ viewBox: "0 0 32 32" }, props),
-        React.createElement("image", { width: "32", height: "32", href: "/images/logo-nav-mobile.png" })));
+        React.createElement("image", { width: "32", height: "32", href: "/images/logo-nav-title-mobile.png" })));
 };
 
 var Icon$T = function (props) {
@@ -3538,6 +3538,11 @@ var unlockWalletKey = "unlockWallet";
 var triggerUnlockKey = "triggerWallet";
 var BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/embed/daruma-shop/link";
 
+var popupWindow = function (url, windowName, width, height) {
+    var y = window.top.outerHeight / 2 + window.top.screenY - (height / 2);
+    var x = window.top.outerWidth / 2 + window.top.screenX - (width / 2);
+    return window.open(url, windowName, "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=" + width + ", height=" + height + ", top=" + y + ", left=" + x);
+};
 var WalletCard = function (_a) {
     var login = _a.login, walletConfig = _a.walletConfig, onDismiss = _a.onDismiss, mb = _a.mb;
     var title = walletConfig.title, Icon = walletConfig.icon;
@@ -3546,7 +3551,7 @@ var WalletCard = function (_a) {
     var handleWalletConnect = function () {
         if (title === 'DarumaWallet') {
             window.localStorage.setItem(triggerUnlockKey, '1');
-            window.open(BASE_DARUMA_URL_SIGNIN + "/" + deviceUID + "/" + tokenUID);
+            popupWindow(BASE_DARUMA_URL_SIGNIN + "/" + deviceUID + "/" + tokenUID, "Daruma Wallet", 600, 600);
         }
         else {
             login(walletConfig.connectorId);
