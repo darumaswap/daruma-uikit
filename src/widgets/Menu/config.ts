@@ -145,11 +145,7 @@ export const socials = [
     items: [
       {
         label: "English",
-        href: "https://t.me/pancakeswap",
-      },
-      {
-        label: "Announcements",
-        href: "https://t.me/PancakeSwapAnn",
+        href: "https://t.me/DarumaWallet",
       }
     ],
   },

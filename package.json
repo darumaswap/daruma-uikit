@@ -1,6 +1,6 @@
 {
   "name": "@darumadefi/uikit",
-  "version": "0.9.4",
+  "version": "0.9.6",
   "description": "Set of UI components for daruma projects",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
