@@ -3362,8 +3362,7 @@ var PriceLink = styled__default['default'].a(templateObject_1$8 || (templateObje
 var CakePrice = function (_a) {
     var cakePriceUsd = _a.cakePriceUsd;
     return cakePriceUsd ? (React__default['default'].createElement(PriceLink, { href: "https://testnet.bscscan.com/token/0xcC720E8C7A766cF198C6FfA0E4D32227d9E9b26b", target: "_blank" },
-        React__default['default'].createElement(Icon$H, { width: "24px", mr: "8px" }),
-        React__default['default'].createElement(Text, { color: "textSubtle", bold: true }, "$0"))) : (React__default['default'].createElement(Skeleton, { width: 80, height: 24 }));
+        React__default['default'].createElement(Icon$H, { width: "24px", mr: "8px" }))) : (React__default['default'].createElement(Skeleton, { width: 80, height: 24 }));
 };
 var CakePrice$1 = React__default['default'].memo(CakePrice);
 var templateObject_1$8;
