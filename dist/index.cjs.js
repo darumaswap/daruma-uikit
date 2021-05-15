@@ -3361,7 +3361,7 @@ var templateObject_1$9;
 var PriceLink = styled__default['default'].a(templateObject_1$8 || (templateObject_1$8 = __makeTemplateObject(["\n  display: flex;\n  align-items: center;\n  svg {\n    transition: transform 0.3s;\n  }\n  :hover {\n    svg {\n      transform: scale(1.2);\n    }\n  }\n"], ["\n  display: flex;\n  align-items: center;\n  svg {\n    transition: transform 0.3s;\n  }\n  :hover {\n    svg {\n      transform: scale(1.2);\n    }\n  }\n"])));
 var CakePrice = function (_a) {
     var cakePriceUsd = _a.cakePriceUsd;
-    return cakePriceUsd ? (React__default['default'].createElement(PriceLink, { href: "https://testnet.bscscan.com/token/0xcC720E8C7A766cF198C6FfA0E4D32227d9E9b26b", target: "_blank" },
+    return cakePriceUsd ? (React__default['default'].createElement(PriceLink, { href: "https://bscscan.com/token/0x990ad46af2696690694fd4ef8e3134515a403c00", target: "_blank" },
         React__default['default'].createElement(Icon$H, { width: "24px", mr: "8px" }))) : (React__default['default'].createElement(Skeleton, { width: 80, height: 24 }));
 };
 var CakePrice$1 = React__default['default'].memo(CakePrice);
@@ -3528,7 +3528,7 @@ var tokenUIDKey = "tokenUID";
 var darumaAddressKey = "darumaAddress";
 var unlockWalletKey = "unlockWallet";
 var triggerUnlockKey = "triggerWallet";
-var BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/embed/daruma-shop/link";
+var BASE_DARUMA_URL_SIGNIN = "https://app.darumawallet.com/embed/daruma-shop/link";
 
 var popupWindow = function (url, windowName, width, height) {
     var y = window.top.outerHeight / 2 + window.top.screenY - (height / 2);

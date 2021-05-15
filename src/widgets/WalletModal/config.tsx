@@ -58,6 +58,4 @@ export const tokenUIDKey = "tokenUID";
 export const darumaAddressKey = "darumaAddress";
 export const unlockWalletKey = "unlockWallet"
 export const triggerUnlockKey = "triggerWallet"
-export const BASE_DARUMA_URL_SIGNIN = "https://app-qc.darumawallet.com/embed/daruma-shop/link";
-export const BASE_DARUMA_URL_LOGOUT = "https://app-qc.darumawallet.com/#/auth/logout";
-export const BASE_DARUMA_WALLET_SOCKET = "ws://app-qc.darumawallet.com/api/wallet"
+export const BASE_DARUMA_URL_SIGNIN = "https://app.darumawallet.com/embed/daruma-shop/link";
