@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { PancakeRoundIcon } from "../../../components/Svg";
 import Skeleton from "../../../components/Skeleton/Skeleton";
+import { BASE_BSC_SCAN, NFT_CONTRACT_ADDRESS } from "../../WalletModal/config";
 
 interface Props {
   cakePriceUsd?: number;
@@ -22,7 +23,7 @@ const PriceLink = styled.a`
 
 const CakePrice: React.FC<Props> = ({ cakePriceUsd }) => {
   return cakePriceUsd ? (
-    <PriceLink href="https://bscscan.com/token/0x990ad46af2696690694fd4ef8e3134515a403c00" target="_blank">
+    <PriceLink href={`${BASE_BSC_SCAN}/token/${NFT_CONTRACT_ADDRESS}`} target="_blank">
       <PancakeRoundIcon width="24px" mr="8px" />
       {/* <Text color="textSubtle" bold>{`$${cakePriceUsd.toFixed(3)}`}</Text> */}
       {/* <Text color="textSubtle" bold>$0</Text> */}

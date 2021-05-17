@@ -7,4 +7,6 @@ export declare const tokenUIDKey = "tokenUID";
 export declare const darumaAddressKey = "darumaAddress";
 export declare const unlockWalletKey = "unlockWallet";
 export declare const triggerUnlockKey = "triggerWallet";
-export declare const BASE_DARUMA_URL_SIGNIN = "https://app.darumawallet.com/embed/daruma-shop/link";
+export declare const BASE_DARUMA_URL_SIGNIN: string | undefined;
+export declare const BASE_BSC_SCAN: string | undefined;
+export declare const NFT_CONTRACT_ADDRESS: string | undefined;
