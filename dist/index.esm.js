@@ -3606,7 +3606,7 @@ var AccountModal = function (_a) {
     return (React.createElement(Modal, { title: "Your wallet", onDismiss: onDismiss },
         React.createElement(Text, { fontSize: "20px", bold: true, style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: "8px" } }, darumaAddress || (account)),
         React.createElement(Flex, { mb: "32px" },
-            React.createElement(LinkExternal, { small: true, href: "https://testnet.bscscan.com/address/" + darumaAddress, mr: "16px" }, "View on BscScan"),
+            React.createElement(LinkExternal, { small: true, href: BASE_BSC_SCAN + "/address/" + darumaAddress, mr: "16px" }, "View on BscScan"),
             React.createElement(CopyToClipboard, { toCopy: account }, "Copy Address")),
         React.createElement(Flex, { justifyContent: "center" },
             React.createElement(Button, { scale: "sm", variant: "secondary", onClick: handleLogout }, "Logout"))));
