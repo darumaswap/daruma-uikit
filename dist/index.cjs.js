@@ -3620,7 +3620,7 @@ var AccountModal = function (_a) {
         React__default['default'].createElement(Text, { fontSize: "20px", bold: true, style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: "8px" } }, darumaAddress || (account)),
         React__default['default'].createElement(Flex, { mb: "32px" },
             React__default['default'].createElement(LinkExternal, { small: true, href: BASE_BSC_SCAN + "/address/" + darumaAddress, mr: "16px" }, "View on BscScan"),
-            React__default['default'].createElement(CopyToClipboard, { toCopy: account }, "Copy Address")),
+            React__default['default'].createElement(CopyToClipboard, { toCopy: darumaAddress || account }, "Copy Address")),
         React__default['default'].createElement(Flex, { justifyContent: "center" },
             React__default['default'].createElement(Button, { scale: "sm", variant: "secondary", onClick: handleLogout }, "Logout"))));
 };
