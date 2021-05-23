@@ -5,7 +5,7 @@ import LinkExternal from "../../components/Link/LinkExternal";
 import Flex from "../../components/Box/Flex";
 import { Modal } from "../Modal";
 import CopyToClipboard from "./CopyToClipboard";
-import { BASE_BSC_SCAN, connectorLocalStorageKey, darumaAddressKey, triggerUnlockKey } from "./config";
+import { BASE_BSC_SCAN, connectorLocalStorageKey, darumaAddressKey } from "./config";
 
 interface Props {
   account: string;
@@ -18,8 +18,7 @@ const AccountModal: React.FC<Props> = ({ account, logout, onDismiss = () => null
 
   const handleLogout = () => {
     if (darumaAddress) {
-      window.localStorage.removeItem(darumaAddressKey);
-      window.localStorage.setItem(triggerUnlockKey, '0');
+      window.localStorage.clear()
       window.location.reload();
     }else {
       logout();

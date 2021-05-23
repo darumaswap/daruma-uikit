@@ -3425,7 +3425,6 @@ var connectorLocalStorageKey = "connectorId";
 var deviceUIDKey = "deviceUID";
 var tokenUIDKey = "tokenUID";
 var darumaAddressKey = "darumaAddress";
-var unlockWalletKey = "unlockWallet";
 var triggerUnlockKey = "triggerWallet";
 var BASE_DARUMA_URL_SIGNIN = process.env.REACT_APP_BASE_DARUMA_URL_SIGNIN;
 var BASE_BSC_SCAN = process.env.REACT_APP_BASE_BSC_URL;
@@ -3606,8 +3605,7 @@ var AccountModal = function (_a) {
     var darumaAddress = window.localStorage.getItem(darumaAddressKey);
     var handleLogout = function () {
         if (darumaAddress) {
-            window.localStorage.removeItem(darumaAddressKey);
-            window.localStorage.setItem(triggerUnlockKey, '0');
+            window.localStorage.clear();
             window.location.reload();
         }
         else {
@@ -3633,10 +3631,9 @@ var useWalletModal = function (login, logout, account) {
 
 var UserBlock = function (_a) {
     var account = _a.account, login = _a.login, logout = _a.logout;
-    var _b = React.useState("0"), enable = _b[0], setEnable = _b[1];
-    var _c = useWalletModal(login, logout, account), onPresentConnectModal = _c.onPresentConnectModal, onPresentAccountModal = _c.onPresentAccountModal;
+    var _b = useWalletModal(login, logout, account), onPresentConnectModal = _b.onPresentConnectModal, onPresentAccountModal = _b.onPresentAccountModal;
     var accountEllipsis = account ? account.substring(0, 4) + "..." + account.substring(account.length - 4) : null;
-    var _d = React.useState(window.localStorage.getItem(darumaAddressKey)), darumaAddress = _d[0], setDarumaAddress = _d[1];
+    var _c = React.useState(''), darumaAddress = _c[0], setDarumaAddress = _c[1];
     React.useEffect(function () {
         var updateAddress = function () {
             var addr = window.localStorage.getItem(darumaAddressKey);
@@ -3649,19 +3646,9 @@ var UserBlock = function (_a) {
                 setDarumaAddress('');
             }
         };
-        var interval = setInterval(updateAddress, 500);
+        var interval = setInterval(updateAddress, 100);
         return function () { return clearInterval(interval); };
     }, [darumaAddress]);
-    React.useEffect(function () {
-        var checkWalletButton = function () {
-            var isEnable = window.localStorage.getItem(unlockWalletKey);
-            if (isEnable) {
-                setEnable(isEnable.toString());
-            }
-        };
-        var interval = setInterval(checkWalletButton, 500);
-        return function () { return clearInterval(interval); };
-    }, []);
     return (React__default['default'].createElement("div", null, account ? (React__default['default'].createElement(Button, { scale: "sm", variant: "tertiary", onClick: function () {
             onPresentAccountModal();
         } }, accountEllipsis)) : (React__default['default'].createElement(React__default['default'].Fragment, null, darumaAddress ? (React__default['default'].createElement(Button, { scale: "sm", variant: "tertiary", onClick: function () {
@@ -3671,7 +3658,7 @@ var UserBlock = function (_a) {
         "...",
         darumaAddress.substring(darumaAddress.length - 4))) : (React__default['default'].createElement(Button, { scale: "sm", onClick: function () {
             onPresentConnectModal();
-        }, disabled: enable === "0" }, "Connect"))))));
+        } }, "Connect"))))));
 };
 
 var Wrapper = styled__default['default'].div(templateObject_1$3 || (templateObject_1$3 = __makeTemplateObject(["\n  position: relative;\n  width: 100%;\n"], ["\n  position: relative;\n  width: 100%;\n"])));
@@ -4087,7 +4074,6 @@ exports.menuStatus = status;
 exports.toastTypes = types;
 exports.tokenUIDKey = tokenUIDKey;
 exports.triggerUnlockKey = triggerUnlockKey;
-exports.unlockWalletKey = unlockWalletKey;
 exports.useKonamiCheatCode = useKonamiCheatCode;
 exports.useMatchBreakpoints = useMatchBreakpoints;
 exports.useModal = useModal;

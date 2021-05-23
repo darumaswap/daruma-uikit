@@ -4,7 +4,6 @@ export {
   deviceUIDKey,
   tokenUIDKey,
   darumaAddressKey,
-  unlockWalletKey,
   triggerUnlockKey
 } from "./config";
 export { ConnectorNames } from "./types";

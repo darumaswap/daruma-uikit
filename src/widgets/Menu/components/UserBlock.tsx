@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Button from "../../../components/Button/Button";
 import { darumaAddressKey, useWalletModal } from "../../WalletModal";
 import { Login } from "../../WalletModal/types";
-import { unlockWalletKey } from "../../WalletModal/config";
 
 interface Props {
   account?: string;
@@ -11,10 +10,9 @@ interface Props {
 }
 
 const UserBlock: React.FC<Props> = ({ account, login, logout}) => {
-  const [enable, setEnable] = useState("0")
   const { onPresentConnectModal, onPresentAccountModal } = useWalletModal(login, logout, account);
   const accountEllipsis = account ? `${account.substring(0, 4)}...${account.substring(account.length - 4)}` : null;
-  const [darumaAddress, setDarumaAddress] = useState(window.localStorage.getItem(darumaAddressKey))
+  const [darumaAddress, setDarumaAddress] = useState('')
 
   useEffect(() => {
     const updateAddress = () => {
@@ -27,20 +25,9 @@ const UserBlock: React.FC<Props> = ({ account, login, logout}) => {
         setDarumaAddress('')
       }
     }
-    const interval = setInterval(updateAddress, 500)
+    const interval = setInterval(updateAddress, 100)
     return () => clearInterval(interval)
   },[darumaAddress])
-
-  useEffect(() => {
-    const checkWalletButton = () => {
-      const isEnable = window.localStorage.getItem(unlockWalletKey)
-      if (isEnable){
-        setEnable(isEnable.toString())
-      }
-    }
-    const interval = setInterval(checkWalletButton, 500)
-    return () => clearInterval(interval)
-  }, [])
 
   return (
     <div>
@@ -72,7 +59,6 @@ const UserBlock: React.FC<Props> = ({ account, login, logout}) => {
               onClick={() => {
                 onPresentConnectModal();
               }}
-              disabled={enable === "0"}
             >
               Connect
             </Button>

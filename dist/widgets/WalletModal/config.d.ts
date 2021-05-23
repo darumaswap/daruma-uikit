@@ -5,7 +5,6 @@ export declare const connectorLocalStorageKey = "connectorId";
 export declare const deviceUIDKey = "deviceUID";
 export declare const tokenUIDKey = "tokenUID";
 export declare const darumaAddressKey = "darumaAddress";
-export declare const unlockWalletKey = "unlockWallet";
 export declare const triggerUnlockKey = "triggerWallet";
 export declare const BASE_DARUMA_URL_SIGNIN: string | undefined;
 export declare const BASE_BSC_SCAN: string | undefined;
