@@ -59,4 +59,5 @@ export const darumaAddressKey = "darumaAddress";
 export const triggerUnlockKey = "triggerWallet"
 export const BASE_DARUMA_URL_SIGNIN = process.env.REACT_APP_BASE_DARUMA_URL_SIGNIN;
 export const BASE_BSC_SCAN = process.env.REACT_APP_BASE_BSC_URL;
+export const BASE_DARUMA_URL = process.env.REACT_APP_BASE_DARUMA_WALLET;
 export const NFT_CONTRACT_ADDRESS = process.env.REACT_APP_NFT_CONTRACT;

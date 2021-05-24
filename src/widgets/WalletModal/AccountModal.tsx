@@ -5,7 +5,7 @@ import LinkExternal from "../../components/Link/LinkExternal";
 import Flex from "../../components/Box/Flex";
 import { Modal } from "../Modal";
 import CopyToClipboard from "./CopyToClipboard";
-import { BASE_BSC_SCAN, connectorLocalStorageKey, darumaAddressKey } from "./config";
+import { BASE_BSC_SCAN, BASE_DARUMA_URL, connectorLocalStorageKey, darumaAddressKey } from "./config";
 
 interface Props {
   account: string;
@@ -38,9 +38,12 @@ const AccountModal: React.FC<Props> = ({ account, logout, onDismiss = () => null
           account
         )}
       </Text>
-      <Flex mb="32px">
+      <Flex mb="48px">
         <LinkExternal small href={`${BASE_BSC_SCAN}/address/${darumaAddress}`} mr="16px">
           View on BscScan
+        </LinkExternal>
+        <LinkExternal small href={`${BASE_DARUMA_URL}/user/personal/details/BNB/`} mr="16px">
+          View on DarumaWallet
         </LinkExternal>
         <CopyToClipboard toCopy={darumaAddress || account}>Copy Address</CopyToClipboard>
       </Flex>

@@ -3428,6 +3428,7 @@ var darumaAddressKey = "darumaAddress";
 var triggerUnlockKey = "triggerWallet";
 var BASE_DARUMA_URL_SIGNIN = process.env.REACT_APP_BASE_DARUMA_URL_SIGNIN;
 var BASE_BSC_SCAN = process.env.REACT_APP_BASE_BSC_URL;
+var BASE_DARUMA_URL = process.env.REACT_APP_BASE_DARUMA_WALLET;
 var NFT_CONTRACT_ADDRESS = process.env.REACT_APP_NFT_CONTRACT;
 
 var PriceLink = styled__default['default'].a(templateObject_1$8 || (templateObject_1$8 = __makeTemplateObject(["\n  display: flex;\n  align-items: center;\n  svg {\n    transition: transform 0.3s;\n  }\n  :hover {\n    svg {\n      transform: scale(1.2);\n    }\n  }\n"], ["\n  display: flex;\n  align-items: center;\n  svg {\n    transition: transform 0.3s;\n  }\n  :hover {\n    svg {\n      transform: scale(1.2);\n    }\n  }\n"])));
@@ -3616,8 +3617,9 @@ var AccountModal = function (_a) {
     };
     return (React__default['default'].createElement(Modal, { title: "Your wallet", onDismiss: onDismiss },
         React__default['default'].createElement(Text, { fontSize: "20px", bold: true, style: { whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: "8px" } }, darumaAddress || (account)),
-        React__default['default'].createElement(Flex, { mb: "32px" },
+        React__default['default'].createElement(Flex, { mb: "48px" },
             React__default['default'].createElement(LinkExternal, { small: true, href: BASE_BSC_SCAN + "/address/" + darumaAddress, mr: "16px" }, "View on BscScan"),
+            React__default['default'].createElement(LinkExternal, { small: true, href: BASE_DARUMA_URL + "/user/personal/details/BNB/", mr: "16px" }, "View on DarumaWallet"),
             React__default['default'].createElement(CopyToClipboard, { toCopy: darumaAddress || account }, "Copy Address")),
         React__default['default'].createElement(Flex, { justifyContent: "center" },
             React__default['default'].createElement(Button, { scale: "sm", variant: "secondary", onClick: handleLogout }, "Logout"))));
