@@ -11,6 +11,7 @@ var debounce = require('lodash/debounce');
 var reactPopper = require('react-popper');
 var throttle = require('lodash/throttle');
 var reactRouterDom = require('react-router-dom');
+var uuid = require('uuid');
 var reactTransitionGroup = require('react-transition-group');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -3422,10 +3423,10 @@ var connectors = [
     }, */
 ];
 var connectorLocalStorageKey = "connectorId";
-var deviceUIDKey = "deviceUID";
-var tokenUIDKey = "tokenUID";
-var darumaAddressKey = "darumaAddress";
-var triggerUnlockKey = "triggerWallet";
+var deviceUIDKey = uuid.v4();
+var tokenUIDKey = uuid.v4();
+var darumaAddressKey = uuid.v4();
+var triggerUnlockKey = uuid.v4();
 var BASE_DARUMA_URL_SIGNIN = process.env.REACT_APP_BASE_DARUMA_URL_SIGNIN;
 var BASE_BSC_SCAN = process.env.REACT_APP_BASE_BSC_URL;
 var BASE_DARUMA_URL = process.env.REACT_APP_BASE_DARUMA_WALLET;

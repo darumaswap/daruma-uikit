@@ -5,6 +5,7 @@
 // import WalletConnect from "./icons/WalletConnect";
 // import BinanceChain from "./icons/BinanceChain";
 // import SafePalWallet from "./icons/SafePalWallet";
+import { v4 as uuidv4 } from 'uuid';
 import DarunaWallet from "./icons/DarumaWallet";
 import { Config, ConnectorNames } from "./types";
 
@@ -53,10 +54,10 @@ const connectors: Config[] = [
 
 export default connectors;
 export const connectorLocalStorageKey = "connectorId";
-export const deviceUIDKey = "deviceUID";
-export const tokenUIDKey = "tokenUID";
-export const darumaAddressKey = "darumaAddress";
-export const triggerUnlockKey = "triggerWallet"
+export const deviceUIDKey = uuidv4();
+export const tokenUIDKey = uuidv4();
+export const darumaAddressKey = uuidv4();
+export const triggerUnlockKey = uuidv4();
 export const BASE_DARUMA_URL_SIGNIN = process.env.REACT_APP_BASE_DARUMA_URL_SIGNIN;
 export const BASE_BSC_SCAN = process.env.REACT_APP_BASE_BSC_URL;
 export const BASE_DARUMA_URL = process.env.REACT_APP_BASE_DARUMA_WALLET;

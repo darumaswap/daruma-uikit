@@ -7,6 +7,7 @@ import debounce from 'lodash/debounce';
 import { usePopper } from 'react-popper';
 import throttle from 'lodash/throttle';
 import { Link as Link$1, NavLink, useLocation } from 'react-router-dom';
+import { v4 } from 'uuid';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 /*! *****************************************************************************
@@ -3409,10 +3410,10 @@ var connectors = [
     }, */
 ];
 var connectorLocalStorageKey = "connectorId";
-var deviceUIDKey = "deviceUID";
-var tokenUIDKey = "tokenUID";
-var darumaAddressKey = "darumaAddress";
-var triggerUnlockKey = "triggerWallet";
+var deviceUIDKey = v4();
+var tokenUIDKey = v4();
+var darumaAddressKey = v4();
+var triggerUnlockKey = v4();
 var BASE_DARUMA_URL_SIGNIN = process.env.REACT_APP_BASE_DARUMA_URL_SIGNIN;
 var BASE_BSC_SCAN = process.env.REACT_APP_BASE_BSC_URL;
 var BASE_DARUMA_URL = process.env.REACT_APP_BASE_DARUMA_WALLET;
