@@ -39,12 +39,14 @@ const AccountModal: React.FC<Props> = ({ account, logout, onDismiss = () => null
         )}
       </Text>
       <Flex mb="48px">
-        <LinkExternal small href={`${BASE_BSC_SCAN}/address/${darumaAddress}`} mr="16px">
+        <LinkExternal small href={`${BASE_BSC_SCAN}/address/${darumaAddress || account}`} mr="16px">
           View on BscScan
         </LinkExternal>
-        <LinkExternal small href={`${BASE_DARUMA_URL}/user/personal/details/BNB/`} mr="16px">
-          View on DarumaWallet
-        </LinkExternal>
+        {darumaAddress && (
+          <LinkExternal small href={`${BASE_DARUMA_URL}/user/personal/details/BNB/`} mr="16px">
+            View on DarumaWallet
+          </LinkExternal>
+        )}
         <CopyToClipboard toCopy={darumaAddress || account}>Copy Address</CopyToClipboard>
       </Flex>
       <Flex justifyContent="center">

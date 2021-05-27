@@ -32,6 +32,7 @@ const WalletCard: React.FC<Props> = ({ login, walletConfig, onDismiss, mb }) => 
     }else {
       login(walletConfig.connectorId);
       window.localStorage.setItem(connectorLocalStorageKey, walletConfig.connectorId);
+      window.localStorage.removeItem(triggerUnlockKey)
     }
     onDismiss();
   }
